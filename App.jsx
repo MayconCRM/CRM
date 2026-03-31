@@ -6,7 +6,7 @@ import { Search, Menu, X, ChevronDown, ChevronRight, Plus, Edit2, Trash2, Eye, F
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL || "https://gazpxrinfxzxjucxcpwp.supabase.co";
 const SUPABASE_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY || "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdhenB4cmluZnh6eGp1Y3hjcHdwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ0ODkwODYsImV4cCI6MjA5MDA2NTA4Nn0.D8vGfrEFgNW2b1FkFWgkHe3p8uOL20ESMBHxGRUWtNw";
 
-const sb = {const sb = {
+const sb = {
   headers: {
     apikey: SUPABASE_KEY,
     Authorization: `Bearer ${SUPABASE_KEY}`,
