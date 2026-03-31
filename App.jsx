@@ -6,7 +6,49 @@ import { Search, Menu, X, ChevronDown, ChevronRight, Plus, Edit2, Trash2, Eye, F
 const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL || "https://gazpxrinfxzxjucxcpwp.supabase.co";
 const SUPABASE_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY || "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdhenB4cmluZnh6eGp1Y3hjcHdwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ0ODkwODYsImV4cCI6MjA5MDA2NTA4Nn0.D8vGfrEFgNW2b1FkFWgkHe3p8uOL20ESMBHxGRUWtNw";
 
-const sb = {
+const sb = {const sb = {
+  headers: {
+    apikey: SUPABASE_KEY,
+    Authorization: `Bearer ${SUPABASE_KEY}`,
+    "Content-Type": "application/json",
+    Prefer: "return=representation",
+  },
+  clean(row) {
+    const cleaned = {};
+    for (const [k, v] of Object.entries(row)) {
+      if (v === "" || v === undefined) cleaned[k] = null;
+      else cleaned[k] = v;
+    }
+    return cleaned;
+  },
+  async select(table) {
+    try {
+      const r = await fetch(`${SUPABASE_URL}/rest/v1/${table}?select=*&order=criado_em.desc`, { headers: this.headers });
+      if (!r.ok) throw new Error(await r.text());
+      return await r.json();
+    } catch (e) { console.warn(`[Supabase] select ${table}:`, e); return null; }
+  },
+  async insert(table, row) {
+    try {
+      const r = await fetch(`${SUPABASE_URL}/rest/v1/${table}`, { method: "POST", headers: this.headers, body: JSON.stringify(this.clean(row)) });
+      if (!r.ok) throw new Error(await r.text());
+      return (await r.json())?.[0] || row;
+    } catch (e) { console.warn(`[Supabase] insert ${table}:`, e); return null; }
+  },
+  async update(table, id, patch) {
+    try {
+      const r = await fetch(`${SUPABASE_URL}/rest/v1/${table}?id=eq.${id}`, { method: "PATCH", headers: this.headers, body: JSON.stringify(this.clean({ ...patch, atualizado_em: new Date().toISOString() })) });
+      if (!r.ok) throw new Error(await r.text());
+      return (await r.json())?.[0] || patch;
+    } catch (e) { console.warn(`[Supabase] update ${table}:`, e); return null; }
+  },
+  async remove(table, id) {
+    try {
+      const r = await fetch(`${SUPABASE_URL}/rest/v1/${table}?id=eq.${id}`, { method: "DELETE", headers: this.headers });
+      return r.ok;
+    } catch (e) { console.warn(`[Supabase] delete ${table}:`, e); return false; }
+  },
+};
   headers: {
     apikey: SUPABASE_KEY,
     Authorization: `Bearer ${SUPABASE_KEY}`,
