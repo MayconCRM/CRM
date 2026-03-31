@@ -95,11 +95,12 @@ const uid = () => crypto.randomUUID?.() || Math.random().toString(36).slice(2);
 
 // ==================== SEED DATA ====================
 const SEED_USERS = [
-  { id: "u1", nome: "Carlos Almeida", email: "carlos@alhambra.com", perfil: "gestor", ativo: true },
-  { id: "u2", nome: "Ana Silva", email: "ana@alhambra.com", perfil: "comercial", ativo: true },
-  { id: "u3", nome: "Bruno Costa", email: "bruno@alhambra.com", perfil: "comercial", ativo: true },
-  { id: "u4", nome: "Lucia Martins", email: "lucia@alhambra.com", perfil: "cs", ativo: true },
-  { id: "u5", nome: "Pedro Souza", email: "pedro@alhambra.com", perfil: "tecnico", ativo: true },
+  const SEED_USERS = [
+  { id: "a1b2c3d4-0001-4000-8000-000000000001", nome: "Carlos Almeida", email: "carlos@alhambra.com", perfil: "gestor", ativo: true },
+  { id: "a1b2c3d4-0001-4000-8000-000000000002", nome: "Ana Silva", email: "ana@alhambra.com", perfil: "comercial", ativo: true },
+  { id: "a1b2c3d4-0001-4000-8000-000000000003", nome: "Bruno Costa", email: "bruno@alhambra.com", perfil: "comercial", ativo: true },
+  { id: "a1b2c3d4-0001-4000-8000-000000000004", nome: "Lucia Martins", email: "lucia@alhambra.com", perfil: "cs", ativo: true },
+  { id: "a1b2c3d4-0001-4000-8000-000000000005", nome: "Pedro Souza", email: "pedro@alhambra.com", perfil: "tecnico", ativo: true },
 ];
 
 const SEED_CLIENTES = [
